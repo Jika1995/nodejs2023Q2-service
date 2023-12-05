@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 // import { AuthModule } from './auth/auth.module';
@@ -14,6 +14,7 @@ import { AlbumModule } from './album/album.module';
 import { ArtistModule } from './artist/artist.module';
 import { FavoritesModule } from './favorites/favorites.module';
 import dataSource from 'ormconfig';
+import { LoggingMiddleware } from './common/middleware/logging.middleware';
 
 @Module({
   imports: [
@@ -29,4 +30,8 @@ import dataSource from 'ormconfig';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggingMiddleware).forRoutes('*');
+  }
+}
