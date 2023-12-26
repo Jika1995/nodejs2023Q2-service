@@ -9,13 +9,13 @@ import {
 import { ActiveUser } from 'src/iam/decorators/active.user.decorator';
 import { ActiveUserData } from 'src/iam/interfaces/active-user-data.interface';
 import { FavoritesService } from './favorites.service';
-import {
-  ApiCreatedResponse,
-  ApiNoContentResponse,
-  ApiTags,
-} from '@nestjs/swagger';
+// import {
+//   ApiCreatedResponse,
+//   ApiNoContentResponse,
+//   ApiTags,
+// } from '@nestjs/swagger';
 
-@ApiTags('Favorites')
+// @ApiTags('Favorites')
 @Controller('favs')
 export class FavoritesController {
   constructor(private readonly favoritesService: FavoritesService) {}
@@ -26,7 +26,7 @@ export class FavoritesController {
   }
 
   @Post('artist/:id')
-  @ApiCreatedResponse({ description: 'Artist added to your favorites list' })
+  // @ApiCreatedResponse({ description: 'Artist added to your favorites list' })
   addArtist(
     @ActiveUser() user: ActiveUserData,
     @Param('id', ParseUUIDPipe) artistId: string,
@@ -35,9 +35,9 @@ export class FavoritesController {
   }
 
   @Delete('artist/:id')
-  @ApiNoContentResponse({
-    description: 'Artist removed from your favorites list',
-  })
+  // @ApiNoContentResponse({
+  //   description: 'Artist removed from your favorites list',
+  // })
   removeArtist(
     @ActiveUser() user: ActiveUserData,
     @Param('id', ParseUUIDPipe) artistId: string,
@@ -46,7 +46,7 @@ export class FavoritesController {
   }
 
   @Post('album/:id')
-  @ApiCreatedResponse({ description: 'Album added to your favorites list' })
+  // @ApiCreatedResponse({ description: 'Album added to your favorites list' })
   addAlbum(
     @ActiveUser() user: ActiveUserData,
     @Param('id', ParseUUIDPipe) albumId: string,
@@ -55,9 +55,9 @@ export class FavoritesController {
   }
 
   @Delete('album/:id')
-  @ApiNoContentResponse({
-    description: 'Album removed from your favorites list',
-  })
+  // @ApiNoContentResponse({
+  //   description: 'Album removed from your favorites list',
+  // })
   removeAlbum(
     @ActiveUser() user: ActiveUserData,
     @Param('id', ParseUUIDPipe) albumId: string,
@@ -66,7 +66,7 @@ export class FavoritesController {
   }
 
   @Post('track/:id')
-  @ApiCreatedResponse({ description: 'Track added to your favorites list' })
+  // @ApiCreatedResponse({ description: 'Track added to your favorites list' })
   addTrack(
     @ActiveUser() user: ActiveUserData,
     @Param('id', ParseUUIDPipe) trackId: string,
@@ -75,9 +75,9 @@ export class FavoritesController {
   }
 
   @Delete('track/:id')
-  @ApiNoContentResponse({
-    description: 'Track removed from your favorites list',
-  })
+  // @ApiNoContentResponse({
+  //   description: 'Track removed from your favorites list',
+  // })
   removeTrack(
     @ActiveUser() user: ActiveUserData,
     @Param('id', ParseUUIDPipe) trackId: string,

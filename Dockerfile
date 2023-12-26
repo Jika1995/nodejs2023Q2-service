@@ -1,13 +1,15 @@
-FROM node:alpine
+FROM node:16
 
-WORKDIR /app
-
-EXPOSE 4000
+WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm i @nestjs/swagger --legacy-peer-deps
+RUN npm i
 
 COPY . .
+
+RUN npm run build
+
+EXPOSE 4000
 
 CMD ["npm", "run", "start:dev"]
