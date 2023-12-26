@@ -1,27 +1,44 @@
-import { ArgumentsHost, Catch, HttpException } from '@nestjs/common';
-import { Response } from 'express';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  HttpStatus,
+} from '@nestjs/common';
+import { HttpAdapterHost } from '@nestjs/core';
 import { LoggingService } from '../middleware/logging.service';
 
-@Catch(HttpException)
-export class HttpExceptionFilter<T extends HttpException> {
-  private readonly loggingService: LoggingService;
+@Catch()
+export class HttpExceptionFilter implements ExceptionFilter {
+  constructor(
+    private readonly httpAdapterHost: HttpAdapterHost,
+    private readonly logger: LoggingService,
+  ) {}
 
-  catch(exception: T, host: ArgumentsHost) {
+  catch(exception: unknown, host: ArgumentsHost) {
+    const { httpAdapter } = this.httpAdapterHost;
+
+    this.logger.error(
+      exception,
+      exception instanceof Error ? exception.stack : '',
+    );
+
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
 
-    const status = exception.getStatus();
-    const exceptionResponse = exception.getResponse();
+    const status =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
 
-    const error =
-      typeof response === 'string'
-        ? { message: exceptionResponse }
-        : (exceptionResponse as object);
+    const responseBody = {
+      statusCode: HttpStatus,
+      path: httpAdapter.getRequestUrl(ctx.getRequest()),
+      message:
+        exception instanceof HttpException
+          ? exception.message || 'Internal Server Error'
+          : 'Unknown error',
+    };
 
-    response.status(status).json({
-      ...error,
-    });
-
-    this.loggingService.error(error);
+    httpAdapter.reply(ctx.getResponse(), responseBody, status);
   }
 }

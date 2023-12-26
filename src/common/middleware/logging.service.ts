@@ -1,9 +1,25 @@
-import { ConsoleLogger, Injectable } from '@nestjs/common';
+import { ConsoleLogger, Injectable, LoggerService } from '@nestjs/common';
 
 @Injectable()
-export class LoggingService extends ConsoleLogger {
-  logError(error: any) {
-    // eslint-disable-next-line prettier/prettier
-    this.log(`error ${ error }`);
+export class LoggingService extends ConsoleLogger implements LoggerService {
+  log(message: string) {
+    this.writeToFile('📢 ' + message);
+  }
+
+  error(message: string | unknown, trace: string) {
+    this.writeToFile('❌ ' + message);
+    this.writeToFile('🔍 Stack Trace: ' + trace);
+  }
+
+  warn(message: string) {
+    this.writeToFile('⚠️ ' + message);
+  }
+
+  debug(message: string) {
+    this.writeToFile('🐞 ' + message);
+  }
+
+  private writeToFile(message: string) {
+    console.log(message);
   }
 }
