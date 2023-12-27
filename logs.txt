@@ -1,0 +1,72 @@
+📢 Starting Nest application...
+📢 AppModule dependencies initialized
+📢 TypeOrmModule dependencies initialized
+📢 ConfigModule dependencies initialized
+📢 JwtModule dependencies initialized
+📢 LoggingModule dependencies initialized
+📢 TypeOrmModule dependencies initialized
+📢 ConfigHostModule dependencies initialized
+📢 ConfigModule dependencies initialized
+📢 TypeOrmCoreModule dependencies initialized
+📢 TypeOrmModule dependencies initialized
+📢 TypeOrmModule dependencies initialized
+📢 TypeOrmModule dependencies initialized
+📢 TypeOrmModule dependencies initialized
+📢 IamModule dependencies initialized
+📢 UserModule dependencies initialized
+📢 AlbumModule dependencies initialized
+📢 TrackModule dependencies initialized
+📢 ArtistModule dependencies initialized
+📢 FavoritesModule dependencies initialized
+📢 AppController {/}:
+📢 Mapped {/user, POST} route
+📢 Mapped {/, GET} route
+📢 UserController {/user}:
+📢 Mapped {/user, GET} route
+📢 Mapped {/user/:id, PATCH} route
+📢 AuthenticationController {/authentication}:
+📢 Mapped {/authentication/sign-up, POST} route
+📢 Mapped {/authentication/sign-in, POST} route
+📢 Mapped {/authentication/refresh-tokens, POST} route
+📢 TrackController {/track}:
+📢 Mapped {/track, GET} route
+📢 Mapped {/track, POST} route
+📢 Mapped {/track/:id, GET} route
+📢 Mapped {/track/:id, PATCH} route
+📢 Mapped {/track/:id, DELETE} route
+📢 AlbumController {/album}:
+📢 Mapped {/user/:id, GET} route
+📢 Mapped {/album, GET} route
+📢 Mapped {/album, POST} route
+📢 Mapped {/artist, POST} route
+📢 Mapped {/user/:id, DELETE} route
+📢 Mapped {/album/:id, GET} route
+📢 Mapped {/album/:id, PATCH} route
+📢 ArtistController {/artist}:
+📢 Mapped {/album/:id, DELETE} route
+📢 Mapped {/artist, GET} route
+📢 Mapped {/artist/:id, GET} route
+📢 Mapped {/artist/:id, PATCH} route
+📢 FavoritesController {/favs}:
+📢 Mapped {/artist/:id, DELETE} route
+📢 Mapped {/favs, GET} route
+📢 Mapped {/favs/artist/:id, POST} route
+📢 Mapped {/favs/album/:id, POST} route
+📢 Mapped {/favs/artist/:id, DELETE} route
+📢 Nest application successfully started
+📢 Mapped {/favs/track/:id, DELETE} route
+📢 Mapped {/favs/track/:id, POST} route
+📢 Mapped {/favs/album/:id, DELETE} route
+❌ UnauthorizedException: Unauthorized
+⚠️ body: {}, url: GET/artist, params: 0,artist, , statusCode: 401
+🔍 Stack Trace: UnauthorizedException: Unauthorized
+    at AccessTokenGuard.canActivate (/app/src/iam/authentication/guards/access-token.guard.ts:27:13)
+    at AuthenticationGuard.canActivate (/app/src/iam/authentication/guards/authentication.guard.ts:42:18)
+    at GuardsConsumer.tryActivate (/app/node_modules/@nestjs/core/guards/guards-consumer.js:15:34)
+    at canActivateFn (/app/node_modules/@nestjs/core/router/router-execution-context.js:134:59)
+    at /app/node_modules/@nestjs/core/router/router-execution-context.js:42:37
+    at /app/node_modules/@nestjs/core/router/router-proxy.js:9:23
+    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
+    at next (/app/node_modules/express/lib/router/route.js:144:13)
+    at Route.dispatch (/app/node_modules/express/lib/router/route.js:114:3)
+    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)
