@@ -1,4 +1,5 @@
 import { ConsoleLogger, Injectable, LoggerService } from '@nestjs/common';
+import * as fs from 'fs';
 
 @Injectable()
 export class LoggingService extends ConsoleLogger implements LoggerService {
@@ -20,6 +21,10 @@ export class LoggingService extends ConsoleLogger implements LoggerService {
   }
 
   private writeToFile(message: string) {
-    console.log(message);
+    const logStream = fs.createWriteStream('logs.txt', { flags: 'a' });
+
+    // eslint-disable-next-line prettier/prettier
+    logStream.write(`${ message }\n`);
+    logStream.end();
   }
 }
